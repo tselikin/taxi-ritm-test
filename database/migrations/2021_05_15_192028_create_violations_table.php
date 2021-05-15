@@ -15,6 +15,14 @@ class CreateViolationsTable extends Migration
     {
         Schema::create('violations', function (Blueprint $table) {
             $table->id();
+            $table->string('badboy');
+            $table->string('moderator');
+            $table->string('server');
+            $table->string('broken_rule');
+            $table->string('punishment_type');
+            $table->boolean('is_banned')->default(false);
+            $table->string('duration');
+
             $table->timestamps();
         });
     }
