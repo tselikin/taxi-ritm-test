@@ -17,7 +17,9 @@ class CreateRulesTable extends Migration
             $table->id();
             $table->string('paragraph');
             $table->string('description');
-            $table->string('pubishment');
+            $table->string('punishment');
+
+            $table->timestamps();
         });
     }
 
