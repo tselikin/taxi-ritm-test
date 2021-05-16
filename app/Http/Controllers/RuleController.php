@@ -10,8 +10,14 @@ class RuleController extends Controller
     public function index()
     {
         $rules = Rule::all();
-        // dd($rules);
         return view('rules.index', ['rules' => $rules]);
+    }
+
+
+    public function indexForApi()
+    {
+        $rules = Rule::all();
+        return response()->json(['rules' => $rules]);
     }
 
     public function store(Request $request)
