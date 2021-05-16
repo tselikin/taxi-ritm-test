@@ -23,9 +23,9 @@ Route::get('/dashboard', function () {
 
 ### Правила
 Route::get('/rules', 'RuleController@index')->middleware(['auth'])->name('rules');
-Route::get('/rules/edit/{rule}', 'RuleController@edit')->middleware(['auth'])->name('edit_rule');
-Route::post('/rules', 'RuleController@store')->middleware(['auth'])->name('store_rule');
-Route::delete('/rules', 'RuleController@delete')->middleware(['auth'])->name('delete_rule');
-Route::put('/rules', 'RuleController@put')->middleware(['auth'])->name('put_rule');
+Route::get('/rules/edit/{rule}', 'RuleController@edit')->middleware(['auth', 'admin'])->name('edit_rule');
+Route::post('/rules', 'RuleController@store')->middleware(['auth', 'admin'])->name('store_rule');
+Route::delete('/rules', 'RuleController@delete')->middleware(['auth', 'admin'])->name('delete_rule');
+Route::put('/rules', 'RuleController@put')->middleware(['auth', 'admin'])->name('put_rule');
 
 require __DIR__.'/auth.php';
