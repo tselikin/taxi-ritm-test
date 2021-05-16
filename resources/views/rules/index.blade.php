@@ -23,7 +23,7 @@
                     @endforeach
 
                     <div class="pt-4">
-                        @include('rules.addRuleForm')
+                        @include('rules.addRuleForm', ['rule' => null])
                     </div>
                 </div>
             </div>
