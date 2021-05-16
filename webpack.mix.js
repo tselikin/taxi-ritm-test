@@ -16,3 +16,9 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
+
+
+mix.js('resources/js/app.jsx', 'public/js')
+   .react();
+
+// mix.ts("resources/js/app.tsx", "public/js").react();
