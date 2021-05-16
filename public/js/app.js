@@ -4029,6 +4029,17 @@ var AddViolationModal = /*#__PURE__*/function (_React$Component) {
           children: item
         }, index);
       });
+
+      var saveViolation = function saveViolation() {
+        var payload = {
+          name: 'John Doe',
+          occupation: 'gardener'
+        };
+        axios.post('/api/violations', payload).then(function (response) {
+          return console.log(response.data);
+        });
+      };
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 opacity-90",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -4074,6 +4085,9 @@ var AddViolationModal = /*#__PURE__*/function (_React$Component) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
               className: "ml-auto",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                onClick: function onClick() {
+                  return saveViolation();
+                },
                 className: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
                 children: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {

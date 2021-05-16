@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/rules', 'RuleController@indexForApi');
+Route::post('/violations', 'ViolationController@postForApi');

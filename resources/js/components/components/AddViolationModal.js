@@ -40,6 +40,14 @@ class AddViolationModal extends React.Component {
         )
 
 
+        const saveViolation = () => {
+            const payload = { name: 'John Doe', occupation: 'gardener' };
+            axios.post('/api/violations', payload).then(
+                response => console.log(response.data)
+            )
+        }
+
+
 
         return(
             <div className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 opacity-90">
@@ -78,6 +86,7 @@ class AddViolationModal extends React.Component {
                             <hr />
                                 <div className="ml-auto">
                                     <button
+                                        onClick={() => saveViolation()}
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                         Сохранить
                                     </button>

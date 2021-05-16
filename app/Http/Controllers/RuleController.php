@@ -20,6 +20,8 @@ class RuleController extends Controller
         return response()->json(['rules' => $rules]);
     }
 
+
+
     public function store(Request $request)
     {
         $newRule = new Rule();
@@ -30,7 +32,6 @@ class RuleController extends Controller
         $newRule->save();
 
         return redirect()->back();
-        // dd($request->all());
     }
 
 
