@@ -9,18 +9,31 @@ class AddViolationModal extends React.Component {
             punishment_type: 'Тип наказания',
             duration_type: 'минут',
             broken_rule: '',
+            punishment_hint: 'тут будет подсказка'
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleRuleChange = this.handleRuleChange.bind(this);
     }
 
     // toggleModal = () => {
     //     this.setState({isModalShowing: !this.state.isModalShowing})
     // }
+    brokenRulePunishment() {
+        this.props.rules.map(rule => {
+            if (rule.paragraph === this.state.broken_rule) this.setState({punishment_hint: rule.punishment })
+        })
+    }
 
     handleChange(event) {
         // debugger
         this.setState({[event.target.name]: event.target.value});
+    }
+
+    handleRuleChange = (event) => {
+        // debugger
+        this.setState({[event.target.name]: event.target.value});
+        this.brokenRulePunishment()
     }
 
 
@@ -28,7 +41,7 @@ class AddViolationModal extends React.Component {
     render() {
 
         const rulesList = this.props.rules.map((rule) =>
-                <option key={rule.id} value={rule.paragraph}>{rule.paragraph}</option>
+                <option key={rule.id} value={rule.paragraph}>{rule.paragraph+". "+rule.description}</option>
         )
 
 
@@ -91,10 +104,12 @@ class AddViolationModal extends React.Component {
                         <select name="broken_rule"
                                 className="m-1"
                                 value={this.state.broken_rule}
-                                onChange={this.handleChange}>
+                                onChange={this.handleRuleChange}>
                             <option disabled>Нарушенный пункт правил</option>
                             { rulesList }
                         </select>
+
+                        <div>{this.state.punishment_hint}</div>
 
                         <select name="punishment_type"
                                 className="m-1"
@@ -104,7 +119,7 @@ class AddViolationModal extends React.Component {
                             { punishmentTypes }
                         </select>
 
-                        <span>{this.rules && this.rules[0].description}</span>
+
 
                         <input name="duration_number"
                                type="text"
