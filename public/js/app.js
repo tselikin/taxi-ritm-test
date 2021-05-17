@@ -3964,6 +3964,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -3993,24 +3995,37 @@ var AddViolationModal = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(AddViolationModal);
 
-  function AddViolationModal() {
+  function AddViolationModal(props) {
+    var _this;
+
     _classCallCheck(this, AddViolationModal);
 
-    return _super.apply(this, arguments);
-  }
+    _this = _super.call(this, props);
+    _this.state = {
+      badboy: 'Alan Wake',
+      duration_number: 1,
+      punishment_type: 'Тип наказания',
+      duration_type: 'минут',
+      broken_rule: ''
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
+  } // toggleModal = () => {
+  //     this.setState({isModalShowing: !this.state.isModalShowing})
+  // }
+
 
   _createClass(AddViolationModal, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      // debugger
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
     key: "render",
-    value: // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         isModalShowing: false,
-    //     };
-    // }
-    // toggleModal = () => {
-    //     this.setState({isModalShowing: !this.state.isModalShowing})
-    // }
-    function render() {
+    value: function render() {
+      var _this2 = this;
+
       var rulesList = this.props.rules.map(function (rule) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
           value: rule.paragraph,
@@ -4032,10 +4047,15 @@ var AddViolationModal = /*#__PURE__*/function (_React$Component) {
 
       var saveViolation = function saveViolation() {
         var payload = {
-          name: 'John Doe',
-          occupation: 'gardener'
+          badboy: _this2.state.badboy,
+          duration_number: _this2.state.duration_number,
+          duration_type: _this2.state.duration_type,
+          punishment_type: _this2.state.punishment_type,
+          broken_rule: _this2.state.broken_rule
         };
-        axios.post('/api/violations', payload).then(function (response) {
+        axios.post('/violations', payload, {
+          withCredentials: true
+        }).then(function (response) {
           return console.log(response.data);
         });
       };
@@ -4064,23 +4084,42 @@ var AddViolationModal = /*#__PURE__*/function (_React$Component) {
               name: "badboy",
               type: "text",
               placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0438\u043A \u043D\u0430\u0440\u0443\u0448\u0438\u0442\u0435\u043B\u044F",
-              className: "m-1"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
+              className: "m-1",
+              value: this.state.badboy,
+              onChange: this.handleChange
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
               name: "broken_rule",
               className: "m-1",
-              children: rulesList
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
+              value: this.state.broken_rule,
+              onChange: this.handleChange,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                disabled: true,
+                children: "\u041D\u0430\u0440\u0443\u0448\u0435\u043D\u043D\u044B\u0439 \u043F\u0443\u043D\u043A\u0442 \u043F\u0440\u0430\u0432\u0438\u043B"
+              }), rulesList]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
               name: "punishment_type",
               className: "m-1",
-              children: punishmentTypes
+              value: this.state.punishment_type,
+              onChange: this.handleChange,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                disabled: true,
+                defaultValue: "\u0422\u0438\u043F \u043D\u0430\u043A\u0430\u0437\u0430\u043D\u0438\u044F",
+                children: "\u0422\u0438\u043F \u043D\u0430\u043A\u0430\u0437\u0430\u043D\u0438\u044F"
+              }), punishmentTypes]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              children: this.rules && this.rules[0].description
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
               name: "duration_number",
               type: "text",
               placeholder: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C",
-              className: "m-1"
+              className: "m-1",
+              value: this.state.duration_number,
+              onChange: this.handleChange
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
               name: "duration_type",
               className: "m-1",
+              value: this.state.duration_type,
+              onChange: this.handleChange,
               children: timeTypes
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
               className: "ml-auto",

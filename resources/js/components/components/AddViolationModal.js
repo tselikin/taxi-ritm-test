@@ -1,16 +1,27 @@
 import React from "react";
 
 class AddViolationModal extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         isModalShowing: false,
-    //     };
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            badboy: 'Alan Wake',
+            duration_number: 1,
+            punishment_type: 'Тип наказания',
+            duration_type: 'минут',
+            broken_rule: '',
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+    }
 
     // toggleModal = () => {
     //     this.setState({isModalShowing: !this.state.isModalShowing})
     // }
+
+    handleChange(event) {
+        // debugger
+        this.setState({[event.target.name]: event.target.value});
+    }
 
 
 
@@ -18,7 +29,8 @@ class AddViolationModal extends React.Component {
 
         const rulesList = this.props.rules.map((rule) =>
                 <option key={rule.id} value={rule.paragraph}>{rule.paragraph}</option>
-            )
+        )
+
 
         const punishmentTypes = [
             'Мут',
@@ -27,6 +39,7 @@ class AddViolationModal extends React.Component {
         ].map((item, index) =>
             <option key={index} value={item}>{item}</option>
         )
+
 
         const timeTypes = [
             'минут',
@@ -41,12 +54,17 @@ class AddViolationModal extends React.Component {
 
 
         const saveViolation = () => {
-            const payload = { name: 'John Doe', occupation: 'gardener' };
-            axios.post('/api/violations', payload).then(
+            const payload = {
+                badboy: this.state.badboy,
+                duration_number: this.state.duration_number,
+                duration_type: this.state.duration_type,
+                punishment_type: this.state.punishment_type,
+                broken_rule: this.state.broken_rule,
+            };
+            axios.post('/violations', payload, { withCredentials: true }).then(
                 response => console.log(response.data)
             )
         }
-
 
 
         return(
@@ -66,20 +84,40 @@ class AddViolationModal extends React.Component {
                                type="text"
                                placeholder="Введите ник нарушителя"
                                className="m-1"
+                               value={ this.state.badboy }
+                               onChange={ this.handleChange }
                         />
-                        <select name="broken_rule" className="m-1">
+
+                        <select name="broken_rule"
+                                className="m-1"
+                                value={this.state.broken_rule}
+                                onChange={this.handleChange}>
+                            <option disabled>Нарушенный пункт правил</option>
                             { rulesList }
                         </select>
-                        <select name="punishment_type" className="m-1">
+
+                        <select name="punishment_type"
+                                className="m-1"
+                                value={ this.state.punishment_type }
+                                onChange={ this.handleChange }>
+                            <option disabled defaultValue="Тип наказания">Тип наказания</option>
                             { punishmentTypes }
                         </select>
+
+                        <span>{this.rules && this.rules[0].description}</span>
 
                         <input name="duration_number"
                                type="text"
                                placeholder="Продолжительность"
                                className="m-1"
+                               value={ this.state.duration_number }
+                               onChange={ this.handleChange }
                         />
-                        <select name="duration_type" className="m-1">
+                        <select name="duration_type"
+                                className="m-1"
+                                value={this.state.duration_type}
+                                onChange={ this.handleChange }
+                        >
                             { timeTypes }
                         </select>
 
