@@ -23,4 +23,9 @@ class ViolationController extends Controller
 
           return response("New violation saved", 200);
       }
+
+      public function index(Request $request)
+      {
+            return Violation::all();
+      }
 }

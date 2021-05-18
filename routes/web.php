@@ -29,4 +29,5 @@ Route::delete('/rules', 'RuleController@delete')->middleware(['auth', 'admin'])-
 Route::put('/rules', 'RuleController@put')->middleware(['auth', 'admin'])->name('put_rule');
 
 Route::post('/violations', 'ViolationController@postForApi');
+Route::get('/violations', 'ViolationController@index');
 require __DIR__.'/auth.php';

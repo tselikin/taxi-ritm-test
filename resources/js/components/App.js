@@ -1,5 +1,6 @@
 import React from "react";
 import AddViolationModalContainer from "./components/AddViolationModalContainer";
+import ViolationsContainer from "./components/ViolationsContainer";
 
 
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
                 { this.state.isModalShowing &&
                     <AddViolationModalContainer toggleModal={this.toggleModal} />
                 }
+                <ViolationsContainer />
 
             </div>
         )
